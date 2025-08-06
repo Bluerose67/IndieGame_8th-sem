@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d9da78ed901bf4786aeef44c2ccf25, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  itemName: Mushroom
+  itemDescription: An item which revitalizes HEALTH !
+  icon: {fileID: 8793915729297761979, guid: 98ea408a2f59612439584cbc9a41c639, type: 3}
+  isGold: 0
+  currentHealth: 0
+  maxHealth: 0
+  speed: 0
+  damage: 0
+  duration: 0
