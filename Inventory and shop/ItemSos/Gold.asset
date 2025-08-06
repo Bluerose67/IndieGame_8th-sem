@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8d9da78ed901bf4786aeef44c2ccf25, type: 3}
-  m_Name: Mushroom
+  m_Name: Gold
   m_EditorClassIdentifier: 
-  itemName: Mushroom
-  itemDescription: An item which revitalizes HEALTH !
-  icon: {fileID: 8793915729297761979, guid: 98ea408a2f59612439584cbc9a41c639, type: 3}
-  isGold: 0
-  currentHealth: 5
+  itemName: Gold
+  itemDescription: Can be used to buy Items.
+  icon: {fileID: -7942359355602504142, guid: 2bf9a4c07cd8359469ff4e778107f230, type: 3}
+  isGold: 1
+  currentHealth: 0
   maxHealth: 0
   speed: 0
   damage: 0
