@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Pumpkin
   m_EditorClassIdentifier: 
   itemName: Pumpkin
-  itemDescription: An item which revitalizes HEALTH !
+  itemDescription: An item which makes u fast !!
   icon: {fileID: 8389134475083476877, guid: 8b71661cbe090254999044286ec9247d, type: 3}
   isGold: 0
+  stackSize: 3
   currentHealth: 0
   maxHealth: 0
   speed: 2

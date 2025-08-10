@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Steak
   m_EditorClassIdentifier: 
   itemName: Steak
-  itemDescription: An item which revitalizes HEALTH !
+  itemDescription: An item which increases your  MAX HEALTH !
   icon: {fileID: 5558420398955925738, guid: ccbe5a3047f23c3469b63df5511d73ea, type: 3}
   isGold: 0
+  stackSize: 3
   currentHealth: 0
   maxHealth: 2
   speed: 0
