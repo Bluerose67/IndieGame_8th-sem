@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,7 +20,15 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             MarkPresistentObjects();
+
+            // Listen for scene changes
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void MarkPresistentObjects()
@@ -40,5 +49,21 @@ public class GameManager : MonoBehaviour
             Destroy(obj);
         }
         Destroy(gameObject);
+    }
+
+    // Called automatically when a new scene is loaded
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Dungeon")
+        {
+            // Remove the persistent player to avoid duplicates
+            foreach (GameObject obj in presistentObjects)
+            {
+                if (obj != null && obj.CompareTag("Player") && obj.CompareTag("MainCamera"))
+                {
+                    Destroy(obj);
+                }
+            }
+        }
     }
 }

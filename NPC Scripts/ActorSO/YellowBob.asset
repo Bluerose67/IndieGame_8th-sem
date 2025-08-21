@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c05940381c2364ca9b8170cebd1756, type: 3}
+  m_Name: YellowBob
+  m_EditorClassIdentifier: 
+  actorName: YellowBob
+  portrait: {fileID: -4395808749404051810, guid: d5554148ba2d57842bca4042dcb5061f, type: 3}

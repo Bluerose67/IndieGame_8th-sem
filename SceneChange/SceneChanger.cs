@@ -10,20 +10,39 @@ public class SceneChanger : MonoBehaviour
     public Vector2 newPlayerPosition;
     private Transform player;
 
+    [Header("Auto change when enabled? (set true only in Timeline scene)")]
+    public bool runOnEnable = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             player = collision.transform;
-            fadeAnim.Play("FadeToBlack");
-            StartCoroutine(DelayFade());
+            StartSceneChange();
         }
+    }
+
+    private void OnEnable()
+    {
+        if (runOnEnable)
+            StartSceneChange();
+    }
+
+    private void StartSceneChange()
+    {
+        if (fadeAnim != null)
+            fadeAnim.Play("FadeToBlack");
+
+        StartCoroutine(DelayFade());
     }
 
     IEnumerator DelayFade()
     {
         yield return new WaitForSeconds(fadeTime);
-        player.position = newPlayerPosition;
+
+        if (player != null)
+            player.position = newPlayerPosition;
+
         SceneManager.LoadScene(sceneToLoad);
     }
 }

@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class PlayerMovement : MonoBehaviour
 {
-
     public int facingDirection = 1;
-
+    // public ParticleSystem dust;
     public Rigidbody2D rb;
     public Animator anim;
 
@@ -23,13 +21,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isKnockedBack == false)
+        if (!isKnockedBack)
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            if (horizontal > 0 && transform.localScale.x < 0 ||
-                horizontal < 0 && transform.localScale.x > 0)
+            // Flip check
+            if ((horizontal > 0 && transform.localScale.x < 0) ||
+                (horizontal < 0 && transform.localScale.x > 0))
             {
                 Flip();
             }
@@ -43,13 +42,27 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
+        
+        // if (dust != null)
+        // {
+        //     dust.Stop();   
+        //     dust.Play();   
+        // }
+
         facingDirection *= -1;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+
+    
+        transform.localScale = new Vector3(
+            transform.localScale.x * -1,
+            transform.localScale.y,
+            transform.localScale.z
+        );
     }
+
     public void Knockback(Transform enemy, float force, float stunTime)
     {
         isKnockedBack = true;
-        Vector2 direction = (transform.position - enemy.position) * force;
+        Vector2 direction = (transform.position - enemy.position).normalized;
         rb.linearVelocity = direction * force;
         StartCoroutine(KnockbackCounter(stunTime));
     }
