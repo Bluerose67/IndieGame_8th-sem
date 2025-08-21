@@ -6,7 +6,6 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
 
-    public static DialogueManager Instance;
     [Header("UI References")]
     public CanvasGroup canvasGroup;
     public Image Portrait;
@@ -24,10 +23,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
 
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
@@ -39,11 +34,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public bool CanStartDialogue()
+    {
+        return Time.unscaledTime - lastDialogueEndTime >= dialogueCooldown;
+    }
+
     public void StartDialogue(DialogueSO dialogueSO)
     {
-        if (Time.unscaledTime - lastDialogueEndTime < dialogueCooldown)
-            return;
-
         currentDialogue = dialogueSO;
         dialogueIndex = 0;
         isDialogueActive = true;
@@ -62,7 +59,7 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = currentDialogue.lines[dialogueIndex];
 
-        DialogueHistoryTracker.Instance.RecordNPC(line.speaker);
+        GameManager.Instance.DialogueHistoryTracker.RecordNPC(line.speaker);
 
         Portrait.sprite = line.speaker.portrait;
         actorName.text = line.speaker.actorName;

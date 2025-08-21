@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11c97b5acf4d20149ae232bc2ef42613, type: 3}
-  m_Name: GreetingsPurpleBob
+  m_Name: PurpleBob_Quest_FindBrothers_StillNeedsYellow
   m_EditorClassIdentifier: 
   lines:
   - speaker: {fileID: 11400000, guid: bbfc3ef48145a36479a54fc415ad974b, type: 2}
-    text: Have you seen my Brother, Blue Bob, and Yellow Bob ?
+    text: I see you talked with Blue. Please find Yellow as well.
   options: []
-  requiredNPCs: []
+  requiredNPCs:
+  - {fileID: 11400000, guid: 65d5ff69e08a02f4aa9f40a31f546e24, type: 2}
+  requiredLocations: []
+  requiredItems: []
+  removeAfterPlay: 0
+  removeTheseOnPlay:
+  - {fileID: 11400000, guid: ac4b1ab3ce586e749b7b0930ea41a5e6, type: 2}

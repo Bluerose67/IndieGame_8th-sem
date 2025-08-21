@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11c97b5acf4d20149ae232bc2ef42613, type: 3}
-  m_Name: PurpleBob_VisitedPond
+  m_Name: YellowBob_Quest_FindBlue_Complete
   m_EditorClassIdentifier: 
-  lines: []
+  lines:
+  - speaker: {fileID: 11400000, guid: 08afa6afd0868bb4ab4970f7e9c909ec, type: 2}
+    text: Hey, I'm Yellow Bob ! One of Bob's Brother.
   options: []
-  requiredNPCs: []
-  requiredLocations: []
+  requiredNPCs:
+  - {fileID: 11400000, guid: 65d5ff69e08a02f4aa9f40a31f546e24, type: 2}

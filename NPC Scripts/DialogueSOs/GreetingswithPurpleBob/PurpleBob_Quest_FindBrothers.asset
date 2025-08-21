@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11c97b5acf4d20149ae232bc2ef42613, type: 3}
-  m_Name: Greetings_YellowBob
+  m_Name: PurpleBob_Quest_FindBrothers
   m_EditorClassIdentifier: 
   lines:
-  - speaker: {fileID: 11400000, guid: 08afa6afd0868bb4ab4970f7e9c909ec, type: 2}
-    text: Hey, I'm Yellow Bob ! One of Bob's Brother.
+  - speaker: {fileID: 11400000, guid: bbfc3ef48145a36479a54fc415ad974b, type: 2}
+    text: Have you seen my Brothers, Blue Bob, and Yellow Bob ?
   options: []
-  requiredNPCs:
-  - {fileID: 11400000, guid: 65d5ff69e08a02f4aa9f40a31f546e24, type: 2}
+  requiredNPCs: []
+  requiredLocations: []
+  requiredItems: []
+  removeAfterPlay: 0
+  removeTheseOnPlay: []

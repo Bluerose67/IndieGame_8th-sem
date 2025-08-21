@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c97b5acf4d20149ae232bc2ef42613, type: 3}
+  m_Name: PurpleBob_Quest_Mushroom and Pumpkin_Completed
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: bbfc3ef48145a36479a54fc415ad974b, type: 2}
+    text: Ah, I see you've found the items. Use them well on your quest.
+  options: []
+  requiredNPCs: []
+  requiredLocations: []
+  requiredItems:
+  - {fileID: 11400000, guid: 129ea305d33d680419fc864ad05a6f91, type: 2}
+  - {fileID: 11400000, guid: 171c5002854e10242bc952912c3f45a7, type: 2}
+  removeAfterPlay: 1
+  removeTheseOnPlay:
+  - {fileID: 11400000, guid: 9ee07c46d36571544a554555414dfcc7, type: 2}

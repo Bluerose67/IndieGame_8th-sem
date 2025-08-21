@@ -5,6 +5,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public DialogueManager DialogueManager;
+    public DialogueHistoryTracker DialogueHistoryTracker;
+    public LocationHistoryTracker LocationHistoryTracker;
+
     [Header("Presistent Objects")]
     public GameObject[] presistentObjects;
 
