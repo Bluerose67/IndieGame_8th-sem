@@ -28,18 +28,58 @@ public class Player_Combat : MonoBehaviour
         }
     }
     public void DealDamage()
+{
+    if (attackPoint == null)
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, StatsManager.Instance.weaponRange, enemyLayer);
-
-            if (enemies.Length > 0)
-            {
-                enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-StatsManager.Instance.damage);
-                enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.stunTime);
-            }
+        Debug.LogError("Attack Point not assigned!");
+        return;
     }
+
+    if (StatsManager.Instance == null)
+    {
+        Debug.LogError("StatsManager instance is missing!");
+        return;
+    }
+
+    Collider2D[] enemies = Physics2D.OverlapCircleAll(
+        attackPoint.position,
+        StatsManager.Instance.weaponRange,
+        enemyLayer
+    );
+
+    foreach (Collider2D enemy in enemies)
+    {
+        Enemy_Health health = enemy.GetComponent<Enemy_Health>();
+        Enemy_Knockback knockback = enemy.GetComponent<Enemy_Knockback>();
+
+        if (health != null)
+        {
+            health.ChangeHealth(-StatsManager.Instance.damage);
+        }
+        else
+        {
+            Debug.LogWarning(enemy.name + " is missing Enemy_Health component!");
+        }
+
+        if (knockback != null)
+        {
+            knockback.Knockback(transform, StatsManager.Instance.knockbackForce, StatsManager.Instance.knockbackTime, StatsManager.Instance.stunTime);
+        }
+        else
+        {
+            Debug.LogWarning(enemy.name + " is missing Enemy_Knockback component!");
+        }
+    }
+}
+
 
     public void FinishAttacking()
     {
         anim.SetBool("isAttacking", false);
     }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(attackPoint.position, StatsManager.Instance.weaponRange);
+    // }
 }

@@ -43,9 +43,9 @@ public class Enemy_Movement : MonoBehaviour
             else if (enemyState == EnemyState.Attacking)
             {
                 rb.linearVelocity = Vector2.zero;
-            } 
+            }
         }
-        
+
     }
 
     void Chase()
@@ -57,8 +57,8 @@ public class Enemy_Movement : MonoBehaviour
             Flip();
         }
 
-            Vector2 direction = (player.position - transform.position).normalized;
-            rb.linearVelocity = direction * speed;
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.linearVelocity = direction * speed;
     }
 
     void Flip()
@@ -124,6 +124,12 @@ public class Enemy_Movement : MonoBehaviour
         {
             anim.SetBool("isAttacking", true);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
     }
 }
 
