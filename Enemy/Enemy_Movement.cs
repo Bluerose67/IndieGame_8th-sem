@@ -2,21 +2,15 @@ using UnityEngine;
 
 public class Enemy_Movement : MonoBehaviour
 {
-    public float speed;
-    public float attackRange = 2;
-    public float attackCooldown = 2;
-    public float playerDetectRange = 5;
-    public Transform detectionPoint;
-    public LayerMask playerLayer;
+    public float speed = 3f;
+    public float attackCooldown = 2f;
 
     private float attackCooldownTimer;
     private int facingDirection = 1;
-    private EnemyState enemyState, newState;
 
+    private EnemyState enemyState;
     private Rigidbody2D rb;
-    private Transform player;
     private Animator anim;
-
 
     void Start()
     {
@@ -27,63 +21,23 @@ public class Enemy_Movement : MonoBehaviour
 
     void Update()
     {
-        if (enemyState != EnemyState.knockback)
-        {
-            CheckForPlayer();
-
-            if (attackCooldownTimer > 0)
-            {
-                attackCooldownTimer -= Time.deltaTime;
-            }
-
-            if (enemyState == EnemyState.Chasing)
-            {
-                Chase();
-            }
-            else if (enemyState == EnemyState.Attacking)
-            {
-                rb.linearVelocity = Vector2.zero;
-            }
-        }
-
+        if (enemyState != EnemyState.knockback && attackCooldownTimer > 0)
+            attackCooldownTimer -= Time.deltaTime;
     }
 
-    void Chase()
+    // --- Movement input from EnemyAI ---
+    public void Move(Vector2 direction)
     {
+        if (enemyState == EnemyState.Attacking) return;
 
-        if (player.position.x > transform.position.x && facingDirection == -1 ||
-                player.position.x < transform.position.x && facingDirection == 1)
+        if (direction != Vector2.zero)
         {
-            Flip();
-        }
+            if ((direction.x > 0 && facingDirection == -1) ||
+                (direction.x < 0 && facingDirection == 1))
+                Flip();
 
-        Vector2 direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = direction * speed;
-    }
-
-    void Flip()
-    {
-        facingDirection *= -1;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-    }
-
-    private void CheckForPlayer()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectRange, playerLayer);
-        if (hits.Length > 0)
-        {
-            player = hits[0].transform;
-
-            //if the player is in attack ranger AND cooldown is ready
-            if (Vector2.Distance(transform.position, player.position) <= attackRange && attackCooldownTimer <= 0)
-            {
-                attackCooldownTimer = attackCooldown;
-                ChangeState(EnemyState.Attacking);
-            }
-            else if (Vector2.Distance(transform.position, player.position) > attackRange && enemyState != EnemyState.Attacking)
-            {
-                ChangeState(EnemyState.Chasing);
-            }
+            rb.linearVelocity = direction.normalized * speed;
+            ChangeState(EnemyState.Chasing);
         }
         else
         {
@@ -92,44 +46,42 @@ public class Enemy_Movement : MonoBehaviour
         }
     }
 
-    public void ChangeState(EnemyState newState)
+    // --- Attack input from EnemyAI ---
+    public void Attack()
     {
-        //Exit the current animation
-        if (enemyState == EnemyState.Idle)
+        if (attackCooldownTimer <= 0)
         {
-            anim.SetBool("isIdle", false);
-        }
-        else if (enemyState == EnemyState.Chasing)
-        {
-            anim.SetBool("isChasing", false);
-        }
-        else if (enemyState == EnemyState.Attacking)
-        {
-            anim.SetBool("isAttacking", false);
-        }
-
-        //update our current state
-        enemyState = newState;
-
-        //update the new animation
-        if (enemyState == EnemyState.Idle)
-        {
-            anim.SetBool("isIdle", true);
-        }
-        else if (enemyState == EnemyState.Chasing)
-        {
-            anim.SetBool("isChasing", true);
-        }
-        else if (enemyState == EnemyState.Attacking)
-        {
-            anim.SetBool("isAttacking", true);
+            attackCooldownTimer = attackCooldown;
+            rb.linearVelocity = Vector2.zero;
+            ChangeState(EnemyState.Attacking);
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void Flip()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
+        facingDirection *= -1;
+        transform.localScale = new Vector3(
+            transform.localScale.x * -1,
+            transform.localScale.y,
+            transform.localScale.z);
+    }
+
+    public void ChangeState(EnemyState newState)
+    {
+        // Exit animations
+        anim.SetBool("isIdle", false);
+        anim.SetBool("isChasing", false);
+        anim.SetBool("isAttacking", false);
+
+        enemyState = newState;
+
+        // Enter animations
+        if (enemyState == EnemyState.Idle)
+            anim.SetBool("isIdle", true);
+        else if (enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", true);
+        else if (enemyState == EnemyState.Attacking)
+            anim.SetBool("isAttacking", true);
     }
 }
 
@@ -138,5 +90,5 @@ public enum EnemyState
     Idle,
     Chasing,
     Attacking,
-    knockback,
+    knockback
 }
